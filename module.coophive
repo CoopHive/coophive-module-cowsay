@@ -1,34 +1,49 @@
 {
   "machine": {
     "gpu": 0,
-    "cpu": 1000,
+    "cpu": 200,
     "ram": 100
   },
-  "job": {
-    "APIVersion": "V1beta1",
+  "Job": {
+    "APIVersion": "V1beta2",
     "Spec": {
-      "Deal": {
-        "Concurrency": 1
-      },
-      "Docker": {
-        "Entrypoint": [
-          "/usr/games/cowsay",
-          {{if .Message}}{{.Message}}{{else}}"Pass me an input called Message, like hive run cowsay:v0.1.0 -i Message=moo"{{end}}
-        ],
-        "Image": "grycap/cowsay@sha256:fad516b39e3a587f33ce3dbbb1e646073ef35e0b696bcf9afb1a3e399ce2ab0b"
-      },
-      "Engine": "Docker",
-      "Network": {
-        "Type": "None"
+      "EngineSpec": {
+        "Type": "docker",
+        "Params": {
+          "Entrypoint": null,
+          "EnvironmentVariables": [],
+          "Image": "grycap/cowsay@sha256:fad516b39e3a587f33ce3dbbb1e646073ef35e0b696bcf9afb1a3e399ce2ab0b",
+          "Parameters": [
+            "/usr/games/cowsay",
+            "Hiro"
+          ],
+          "WorkingDirectory": ""
+        }
       },
       "PublisherSpec": {
-        "Type": "Estuary"
+        "Type": "ipfs"
+      },
+      "Docker": {},
+      "Wasm": {
+        "EntryModule": {}
       },
       "Resources": {
         "GPU": ""
       },
+      "Network": {
+        "Type": "None"
+      },
       "Timeout": 1800,
-      "Verifier": "Noop"
+      "Outputs": [
+        {
+          "Name": "outputs",
+          "Path": "/outputs"
+        }
+      ],
+      "Deal": {
+        "Concurrency": 1
+      }
     }
   }
 }
+
